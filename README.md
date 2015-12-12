@@ -14,11 +14,11 @@ Markovbot can generate messages based on channel content or content from one or 
 
 First, once the Markovbot server is up and connected to your Slack instance, invite it to a room using `/invite <bot-username>`. Markovbot can live in multiple rooms.
 
-Once the bot is in the room, typing "markovbot" triggers a new message. If there are usernames following "markovbot", it will try to use those usernames to generate content.
+When the bot is in a room, typing "markovbot" triggers a new message. If there are usernames following "markovbot", it will try to use those usernames to generate content.
 
-`markovbot`: generates content based on the whole channel
+`markovbot` generates content based on the whole channel
 
-`markovbot: bill sandy andy`: generates content based on the chat history from users bill, sandy, and andy.
+`markovbot: bill sandy andy` generates content based on the chat history from users bill, sandy, and andy.
 
 
 ## Server
