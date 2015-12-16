@@ -101,6 +101,11 @@ func (b *markovBot) queueChannelBackfill(channelId, fromUserId string) {
 	}
 }
 
+func (b *markovBot) sendGreeting(rtm *slack.RTM, channel string) {
+	msg := "Usage: sending `markovbot` generates a message based on this channel's recent history. Sending `markovbot: <user1> <user2>...` generates a message based on user1/user2/...'s recent activity in this channel. Have fun!"
+	rtm.SendMessage(rtm.NewOutgoingMessage(msg, channel))
+}
+
 func (b *markovBot) handleLoop(rtm *slack.RTM) {
 Loop:
 	for {
@@ -127,11 +132,13 @@ Loop:
 				// joined a new channel
 				joinedEvent := msg.Data.(*slack.GroupJoinedEvent)
 				b.queueChannelBackfill(joinedEvent.Channel.ID, rtm.GetInfo().User.ID)
+				b.sendGreeting(rtm, joinedEvent.Channel.ID)
 
 			case *slack.ChannelJoinedEvent:
 				// joined a new channel
 				joinedEvent := msg.Data.(*slack.ChannelJoinedEvent)
 				b.queueChannelBackfill(joinedEvent.Channel.ID, rtm.GetInfo().User.ID)
+				b.sendGreeting(rtm, joinedEvent.Channel.ID)
 
 			case *slack.MessageEvent:
 				message := msg.Data.(*slack.MessageEvent)
