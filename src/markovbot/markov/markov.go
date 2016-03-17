@@ -48,7 +48,7 @@ func (m *markovModel) getNextToken(prefix prefix) string {
 	key := prefix.String()
 	choices := m.model[key]
 	if len(choices) == 0 {
-		panic("There must be at least one next choice!")
+		return stopSentinel
 	}
 	return choices[rand.Intn(len(choices))]
 }
@@ -98,7 +98,7 @@ func (m *markovModel) GenerateSentence(maxWords int) string {
 	}
 
 	if len(sentence) == 0 {
-		panic("No empty sentences!")
+		return "< I've got no seed data for that. :( >"
 	}
 	return strings.Join(sentence, " ")
 }
